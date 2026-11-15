@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import './globals.css';
 
-const BASE_URL = 'https://sarukhan.dev';
+const BASE_URL = 'https://sarukhan-digital-card.vercel.app';
 const TITLE = 'Sarukhan Muthuraman — Full Stack Developer';
 const DESCRIPTION =
   'Interactive 3D digital identity card of Sarukhan Muthuraman, Full Stack Developer. Neophile • Vagabond • Eleutheromaniac.';
@@ -17,9 +17,17 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   alternates: { canonical: BASE_URL },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    icon: [
+      { url: '/favicon_io/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon_io/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon_io/favicon.ico' },
+    ],
+    apple: '/favicon_io/apple-touch-icon.png',
+    other: [
+      { rel: 'android-chrome-192x192', url: '/favicon_io/android-chrome-192x192.png' },
+      { rel: 'android-chrome-512x512', url: '/favicon_io/android-chrome-512x512.png' },
+      { rel: 'manifest', url: '/favicon_io/site.webmanifest' },
+    ],
   },
   openGraph: {
     type: 'website',
@@ -27,14 +35,14 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     siteName: 'Sarukhan Digital Card',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: TITLE }],
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: TITLE }],
   },
   twitter: {
     card: 'summary_large_image',
     title: TITLE,
     description: DESCRIPTION,
     creator: '@thedirtyastro',
-    images: ['/og-image.png'],
+    images: ['/opengraph-image'],
   },
 };
 

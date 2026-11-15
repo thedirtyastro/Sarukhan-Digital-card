@@ -4,7 +4,7 @@ import { RefObject, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import {
   BufferAttribute, BufferGeometry, CanvasTexture, DoubleSide, DynamicDrawUsage, Group, Mesh,
-  MeshStandardMaterial, Quaternion, RepeatWrapping, SRGBColorSpace, Vector3,
+  MeshStandardMaterial, PointLight, Quaternion, RepeatWrapping, SRGBColorSpace, Vector3,
 } from 'three';
 import { HARDWARE_LENGTH } from '@/lib/cardLayout';
 import type { PhysicsFrame } from '@/hooks/useCardPhysics';
@@ -48,24 +48,24 @@ function createStrapTexture() {
   c.width = 128;
   c.height = 256;
   const g = c.getContext('2d')!;
-  g.fillStyle = '#16181e';
+  g.fillStyle = '#3a3f4d';
   g.fillRect(0, 0, 128, 256);
   g.lineWidth = 2.5;
   for (let k = -128; k < 256; k += 8) {
-    g.strokeStyle = (k / 8) % 2 ? 'rgba(78,84,96,0.38)' : 'rgba(0,0,0,0.38)';
+    g.strokeStyle = (k / 8) % 2 ? 'rgba(160,168,185,0.45)' : 'rgba(20,22,28,0.45)';
     g.beginPath();
     g.moveTo(0, k);
     g.lineTo(128, k + 128);
     g.stroke();
   }
   for (let i = 0; i < 1400; i++) {
-    g.fillStyle = `rgba(120,126,140,${Math.random() * 0.12})`;
+    g.fillStyle = `rgba(200,210,230,${Math.random() * 0.12})`;
     g.fillRect(Math.random() * 128, Math.random() * 256, 1, 1);
   }
-  g.fillStyle = '#0b0c0f';
+  g.fillStyle = '#22252e';
   g.fillRect(0, 0, 8, 256);
   g.fillRect(120, 0, 8, 256);
-  g.strokeStyle = '#806B43';
+  g.strokeStyle = '#c9a84c';
   g.lineWidth = 2;
   g.setLineDash([7, 6]);
   for (const x of [14, 114]) {
@@ -123,13 +123,14 @@ export function CardLanyard({ frame }: { frame: RefObject<PhysicsFrame> }) {
   const left = useRef<Mesh>(null);
   const right = useRef<Mesh>(null);
   const rest = useRef<[number, number]>([0, 0]);
+  const joinLight = useRef<PointLight>(null);
 
   const geos = useMemo(() => [createRibbonGeometry(), createRibbonGeometry()] as const, []);
   const material = useMemo(() => {
     const map = createStrapTexture();
     return new MeshStandardMaterial({
-      map, bumpMap: map, bumpScale: 0.8, roughness: 0.95, metalness: 0,
-      side: DoubleSide, envMapIntensity: 0.3,
+      map, bumpMap: map, bumpScale: 0.6, roughness: 0.82, metalness: 0.05,
+      side: DoubleSide, envMapIntensity: 1.2,
     });
   }, []);
 
@@ -141,6 +142,9 @@ export function CardLanyard({ frame }: { frame: RefObject<PhysicsFrame> }) {
     dir.subVectors(f.attach, f.connPos);
     const dist = dir.length();
     if (dist < 1e-4) return;
+
+    // track join light to the connector-card junction
+    if (joinLight.current) joinLight.current.position.copy(f.attach);
     dir.divideScalar(dist);
     quat.setFromUnitVectors(DOWN, dir);
     hw.position.copy(f.connPos);
@@ -164,6 +168,7 @@ export function CardLanyard({ frame }: { frame: RefObject<PhysicsFrame> }) {
   return (
     <>
       <CardConnector ref={hardware} />
+      <pointLight ref={joinLight} position={[0, 0, 0]} intensity={5} distance={1.8} decay={2} color="#c9a84c" />
       <mesh ref={left} geometry={geos[0]} material={material} frustumCulled={false} />
       <mesh ref={right} geometry={geos[1]} material={material} frustumCulled={false} />
     </>

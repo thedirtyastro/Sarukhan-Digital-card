@@ -58,7 +58,7 @@ export default function VisitingCard() {
   return (
     <main className="relative h-dvh w-full overflow-hidden bg-midnight">
       {/* supplied gold cloud artwork, barely visible */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[url('/images/tag-background.webp')] bg-cover bg-center opacity-[0.07] mix-blend-screen" />
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[url('/images/tag-background.webp')] bg-cover bg-center opacity-[0.28] mix-blend-screen" />
       {/* spotlight + muted gold light behind the card */}
       <div
         aria-hidden

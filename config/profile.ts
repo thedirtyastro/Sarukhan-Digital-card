@@ -12,6 +12,7 @@ export interface Profile {
   linkedin: string;
   x: string;
   instagram: string;
+  whatsapp: string;
   portfolio: string;
   resume: string;
   resumeFileName: string;
@@ -34,6 +35,7 @@ export const profile: Profile = {
   linkedin: 'https://linkedin.com/in/sarukhan-muthuraman',
   x: 'https://x.com/thedirtyastro', 
   instagram: 'http://instagram.com/thedirtyastro',
+  whatsapp: 'https://wa.me/917092978110',
   portfolio: 'https://portfolio-weld-mu-dw8u3j4h6w.vercel.app/',
   resume: '/resume.pdf',
   resumeFileName: 'Saruk-Resume.pdf',
