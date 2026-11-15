@@ -35,14 +35,12 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     siteName: 'Sarukhan Digital Card',
-    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: TITLE }],
   },
   twitter: {
     card: 'summary_large_image',
     title: TITLE,
     description: DESCRIPTION,
     creator: '@thedirtyastro',
-    images: ['/opengraph-image'],
   },
 };
 

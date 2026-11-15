@@ -4,7 +4,7 @@ export const runtime = 'edge';
 export const contentType = 'image/png';
 export const size = { width: 1200, height: 630 };
 
-export async function GET() {
+export default function Image() {
   return new ImageResponse(
     (
       <div
@@ -44,11 +44,11 @@ export async function GET() {
         {/* social platforms */}
         <div style={{ display: 'flex', gap: 32, alignItems: 'center' }}>
           {[
-            { label: 'X / Twitter', handle: '@thedirtyastro', color: '#e5dfd1' },
-            { label: 'Instagram',   handle: '@thedirtyastro', color: '#e1306c' },
-            { label: 'WhatsApp',    handle: '+91 70929 78110', color: '#25d366' },
-            { label: 'GitHub',      handle: 'thedirtyastro',  color: '#9aa6bb' },
-            { label: 'LinkedIn',    handle: 'sarukhan-muthuraman', color: '#0a66c2' },
+            { label: 'X / Twitter', handle: '@thedirtyastro',       color: '#e5dfd1' },
+            { label: 'Instagram',   handle: '@thedirtyastro',       color: '#e1306c' },
+            { label: 'WhatsApp',    handle: '+91 70929 78110',       color: '#25d366' },
+            { label: 'GitHub',      handle: 'thedirtyastro',         color: '#9aa6bb' },
+            { label: 'LinkedIn',    handle: 'sarukhan-muthuraman',   color: '#0a66c2' },
           ].map(({ label, handle, color }) => (
             <div key={label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
               <div style={{ fontSize: 13, color: '#6b7280', letterSpacing: '0.2em', textTransform: 'uppercase', display: 'flex' }}>{label}</div>
